@@ -1,98 +1,74 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/iegorch86/homelabos
-name: homelabos # must be lowercase — used as the container image/stage name
-description: Personal COSMIC atomic image — home lab workstation.
+# image publishes to ghcr.io/iegorch86/homelabos
+name: homelabos
+description: Personal COSMIC atomic image — DE-less NVIDIA base with COSMIC layered from Fedora repos.
 
-# Base: BlueBuild's Fedora COSMIC image with the NVIDIA open driver baked in
-# (suits the RTX A2000). ublue's own COSMIC image is deprecated, so we base on
-# Fedora COSMIC and layer the pieces we want.
-base-image: ghcr.io/blue-build/base-images/fedora-cosmic-nvidia-open
-# CONFIRM AT DESKTOP: check the available tags on the ghcr package page and pin
-# to a specific Fedora version (e.g. 42 / 43 / 44) once verified. "latest" works
-# but tracks newest; a pinned version avoids surprise major-version jumps.
+# DE-less NVIDIA-open base (Fedora 44 base-atomic + nvidia). Codecs (negativo17) and
+# the QOL package set are already baked in via the base's common.yml — so no RPM Fusion,
+# and distrobox/tcpdump/traceroute/htop/etc. come from the base.
+base-image: ghcr.io/blue-build/base-images/fedora-base-nvidia-open
+# CONFIRM tags on the ghcr package page; pin to 44 for stability if you prefer.
 image-version: latest
 
-# modules run in order
 modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* into the image root
-  - type: script
-    snippets:
-      - "dnf5 -y upgrade 'cosmic*'"
+        destination: /
+
   - type: dnf
     repos:
       copr:
         - atim/starship
-      # Brave's official RPM repo + signing key (BlueBuild's documented pattern)
+      # Brave official RPM repo + key
       files:
         - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     install:
       packages:
+        # COSMIC desktop, installed from Fedora repos → each build pulls the latest stable
+        - "@cosmic-desktop-environment"
         # terminal
         - micro
         - starship
-        # containers
-        - podman
-        - distrobox
         # virtualization
         - qemu-kvm
         - libvirt
         - virt-manager
         - virt-viewer
-        # network diagnostics (also CCNA/Sec+ study tools)
+        # network diagnostics (these are NOT in the base)
         - nmap
-        - tcpdump
-        - traceroute
         - mtr
-        - bind-utils      # dig, nslookup
         - iperf3
-        - wireshark-cli   # tshark; GUI Wireshark can be a Flatpak if wanted
+        - bind-utils
+        - wireshark-cli
         # disk
         - gparted
         # profiling
         - sysprof
         - bpftrace
         - perf
-        # browser (native, from Brave's repo above)
+        # browser (native, from Brave repo above)
         - brave-browser
-    remove:
-      packages:
-        # CONFIRM: only valid if Firefox ships on the COSMIC base. If the build
-        # errors that these aren't installed, delete this remove block.
-        - firefox
-        - firefox-langpacks
- # RPM Fusion + codecs
-  - type: dnf
-    repos:
-      nonfree: rpmfusion          # enables RPM Fusion Free + Nonfree
-    replace:
-      - from-repo: rpmfusion-free
-        packages:
-          - ffmpeg                # swap Fedora's ffmpeg-free for the full build
-    install:
-      packages:
-        - "@multimedia"           # multimedia group: gstreamer plugins + codecs
-  # Homebrew via the dedicated BlueBuild module (installs + auto-update timers)
+    # Firefox intentionally KEPT as a backup browser — no remove block.
+
+  # Homebrew (not in the base)
   - type: brew
 
   - type: default-flatpaks
     configurations:
       - notify: true
         scope: system
-        # Flathub is used by default
         install:
-          - app.zen_browser.zen           # Zen browser
-          - org.kde.kate                  # Kate editor
-          - org.kde.kdenlive              # Kdenlive video editor
-          - org.shotcut.Shotcut           # Shotcut video editor
-          - com.ranfdev.DistroShelf       # distrobox GUI — CONFIRM ID on Flathub
-          - com.github.tchx84.Flatseal    # Flatpak permissions manager
-          - io.podman_desktop.PodmanDesktop  # Podman Desktop — CONFIRM ID on Flathub
-      - scope: user # add Flathub user remote, no user packages
+          - app.zen_browser.zen            # Zen browser
+          - org.kde.kate                   # Kate editor
+          - org.kde.kdenlive               # Kdenlive
+          - org.shotcut.Shotcut            # Shotcut
+          - com.ranfdev.DistroShelf        # distrobox GUI — confirm ID on Flathub
+          - com.github.tchx84.Flatseal     # Flatpak permissions
+          - io.podman_desktop.PodmanDesktop # Podman Desktop — confirm ID on Flathub
+      - scope: user
 
-  - type: signing # signing policy/files for signed images
+  - type: signing
