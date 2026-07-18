@@ -19,7 +19,7 @@ Two variants are available:
 First rebase to the unsigned image:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/homelabos-nvidia:latest
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/gooseos-nvidia-open:latest
 ```
 
 Reboot:
@@ -31,7 +31,7 @@ systemctl reboot
 Then switch to the signed image:
 
 ```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/homelabos-nvidia:latest
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/gooseos-nvidia-open:latest
 ```
 
 Reboot again:
@@ -45,7 +45,7 @@ systemctl reboot
 First rebase to the unsigned image:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/homelabos-intel:latest
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/gooseos-intel:latest
 ```
 
 Reboot:
@@ -57,7 +57,7 @@ systemctl reboot
 Then switch to the signed image:
 
 ```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/homelabos-intel:latest
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/gooseos-intel:latest
 ```
 
 Reboot again:
