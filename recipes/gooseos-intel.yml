@@ -15,4 +15,9 @@ modules:
       PRETTY_NAME: GooseOS Intel
       VARIANT: Intel / Generic
       VARIANT_ID: intel  
+  - type: script
+    no-cache: true
+    scripts:
+      - set-gooseos-version.sh
+    
   - type: signing
