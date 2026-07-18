@@ -50,11 +50,32 @@ modules:
         - gnome-calculator
         - okular
 
+        # Profiling
+        - sysprof
+        - bpftrace
+        - perf
+        
         # Terminal
         - fastfetch
         - micro
         - starship
-
+        
+        # Scanning
+        - sane-backends
+        - sane-backends-drivers-scanners
+        - sane-airscan
+        
+        # Printing
+        - cups
+        - cups-pk-helper
+        - system-config-printer
+        - cups-filters
+        - cups-filters-driverless
+        - cups-browsed
+        - ipp-usb
+        - avahi
+        - bluez-cups
+        
         # Virtualization
         - qemu-kvm
         - libvirt
@@ -92,6 +113,7 @@ modules:
         - exfatprogs
         - dosfstools
         - gdisk
+        - gparted
 
         # General diagnostics
         - htop
