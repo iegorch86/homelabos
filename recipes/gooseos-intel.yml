@@ -9,4 +9,10 @@ image-version: latest
 
 modules:
   - from-file: common-modules.yml
+  - type: os-release
+    properties:
+      NAME: GooseOS
+      PRETTY_NAME: GooseOS Intel
+      VARIANT: Intel / Generic
+      VARIANT_ID: intel  
   - type: signing
