@@ -14,4 +14,11 @@ modules:
     install:
       packages:
         - switcheroo-control
+    - type: os-release
+    properties:
+      NAME: GooseOS
+      PRETTY_NAME: GooseOS NVIDIA Open
+      VARIANT: NVIDIA Open
+      VARIANT_ID: nvidia-open
+      
   - type: signing
