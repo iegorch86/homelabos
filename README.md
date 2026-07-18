@@ -42,6 +42,14 @@ After setup, it is recommended you update this README to describe your custom im
 > [!WARNING]
 > These are personal experimental Fedora Atomic images. Use them at your own discretion.
 
+GooseOS is currently intended to be installed by rebasing an existing **Fedora COSMIC Atomic** system.
+
+Install Fedora COSMIC Atomic first using the official Fedora image: [Download Fedora COSMIC Atomic](https://fedoraproject.org/atomic-desktops/cosmic/download/)
+
+After the initial Fedora installation is complete, rebase to the appropriate GooseOS image.
+
+GooseOS has not been tested as a rebase target from other Fedora Atomic desktops or other bootc-based distributions.
+
 Two variants are available:
 
 - **GooseOS NVIDIA** — for systems using supported NVIDIA graphics and the NVIDIA open kernel modules.
