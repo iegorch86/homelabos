@@ -6,12 +6,15 @@ BUILD_DATE="$(date -u +%Y-%m-%d)"
 
 source "${OS_RELEASE}"
 
+# Ensure the file ends with a newline before appending new fields.
+sed -i -e '$a\' "${OS_RELEASE}"
+
 case "${IMAGE_NAME:?BlueBuild did not provide IMAGE_NAME}" in
     *intel*)
         EDITION="Intel"
         ;;
     *nvidia*)
-        EDITION="NVIDIA"
+        EDITION="NVIDIA Open"
         ;;
     *)
         echo "Cannot determine GooseOS edition from IMAGE_NAME=${IMAGE_NAME}" >&2
@@ -47,7 +50,9 @@ sed -i \
     "${OS_RELEASE}"
 
 if grep -q '^BUILD_DATE=' "${OS_RELEASE}"; then
-    sed -i "s/^BUILD_DATE=.*/BUILD_DATE=\"${BUILD_DATE}\"/" "${OS_RELEASE}"
+    sed -i \
+        "s/^BUILD_DATE=.*/BUILD_DATE=\"${BUILD_DATE}\"/" \
+        "${OS_RELEASE}"
 else
     printf 'BUILD_DATE="%s"\n' "${BUILD_DATE}" >> "${OS_RELEASE}"
 fi
