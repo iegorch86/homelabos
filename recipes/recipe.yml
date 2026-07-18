@@ -23,7 +23,7 @@ modules:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
     install:
-      install-weak-deps: false
+      #install-weak-deps: false
       packages:
         # COSMIC desktop
         - "@cosmic-desktop"
@@ -76,7 +76,13 @@ modules:
           - com.github.tchx84.Flatseal
           - io.podman_desktop.PodmanDesktop
           - io.missioncenter.MissionCenter
-
+  - type: dnf
+    remove:
+      packages:
+        - gdm
+        - gnome-shell
+        - gnome-session
+        - gnome-session-wayland-session
       - scope: user
 
   - type: signing
