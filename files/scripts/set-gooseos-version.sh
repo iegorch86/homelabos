@@ -14,7 +14,7 @@ case "${IMAGE_NAME:?BlueBuild did not provide IMAGE_NAME}" in
         EDITION="Intel/AMD"
         ;;
     *nvidia*)
-        EDITION="Nvidia-open"
+        EDITION="nvidia-open"
         ;;
     *)
         echo "Cannot determine GooseOS edition from IMAGE_NAME=${IMAGE_NAME}" >&2
