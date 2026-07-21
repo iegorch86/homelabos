@@ -61,7 +61,7 @@ Two variants are available:
 First rebase to the unsigned image:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/gooseos-nvidia-open:latest
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/gooseos-cosmic-test:br-testing-44
 ```
 
 Reboot:
@@ -73,7 +73,7 @@ systemctl reboot
 Then switch to the signed image:
 
 ```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/gooseos-nvidia-open:latest
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/gooseos-cosmic-test:br-testing-44
 ```
 
 Reboot again:
@@ -81,34 +81,6 @@ Reboot again:
 ```bash
 systemctl reboot
 ```
-
-### Intel/AMD version
-
-First rebase to the unsigned image:
-
-```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/iegorch86/gooseos-intel:latest
-```
-
-Reboot:
-
-```bash
-systemctl reboot
-```
-
-Then switch to the signed image:
-
-```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/iegorch86/gooseos-intel:latest
-```
-
-Reboot again:
-
-```bash
-systemctl reboot
-```
-
-The `latest` tag points to the newest build of each variant.
 
 ## ISO
 
