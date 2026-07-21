@@ -27,7 +27,7 @@ jobs:
       matrix:
         recipe:
           # !! Add your recipes here
-          - gooseos-intel.yml
+          - build-cosmic-test.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
