@@ -12,7 +12,7 @@ modules:
   - type: os-release
     properties:
       NAME: GooseOS
-      PRETTY_NAME: GooseOS TEST
+      PRETTY_NAME: Cosmic-Test
       VARIANT: TEST
       VARIANT_ID: TEST
   - type: script
